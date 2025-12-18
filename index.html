@@ -12,10 +12,9 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-            background: linear-gradient(135deg, #1a4d2e 0%, #2d5f3f 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #0a0a0a;
             min-height: 100vh;
-            padding: 50px 20px;
             position: relative;
             overflow-x: hidden;
         }
@@ -23,107 +22,195 @@
         body::before {
             content: '';
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: backgroundMove 20s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(29, 77, 46, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(45, 95, 63, 0.1) 0%, transparent 50%);
             pointer-events: none;
-        }
-
-        @keyframes backgroundMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            z-index: 0;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .header-section {
-            text-align: center;
-            margin-bottom: 70px;
+            background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
         .logo {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 30px auto;
-            display: block;
-            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 4px 12px rgba(29, 77, 46, 0.6));
             animation: logoFloat 3s ease-in-out infinite;
         }
 
         @keyframes logoFloat {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-5px); }
         }
 
         .main-title {
-            text-align: center;
-            color: white;
-            font-size: 3.5em;
-            margin-bottom: 10px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1.5em;
             font-weight: 700;
-            animation: titleSlideIn 1s ease-out;
+            text-shadow: 0 2px 10px rgba(29, 77, 46, 0.5);
         }
 
-        @keyframes titleSlideIn {
-            from {
+        .filters-section {
+            padding: 15px;
+            background: linear-gradient(180deg, #111 0%, #0d0d0d 100%);
+            border-bottom: 1px solid #2a2a2a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .filters-label {
+            color: #888;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .filters-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding: 0;
+            max-width: 100%;
+        }
+
+        .filters-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            background: linear-gradient(145deg, #1a1a1a 0%, #151515 100%);
+            color: #aaa;
+            border: 1px solid #333;
+            padding: 10px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            cursor: pointer;
+            white-space: normal;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4),
+                        inset 0 1px 0 rgba(255,255,255,0.03);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(45, 95, 63, 0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .filter-btn:hover {
+            background: linear-gradient(145deg, #222 0%, #1a1a1a 100%);
+            border-color: #2d5f3f;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(29, 77, 46, 0.4),
+                        0 3px 10px rgba(0,0,0,0.5);
+        }
+
+        .filter-btn:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #2d5f3f 0%, #1a4d2e 100%);
+            color: #fff;
+            border-color: #3d6f4f;
+            box-shadow: 0 6px 25px rgba(29, 77, 46, 0.6),
+                        0 3px 12px rgba(0,0,0,0.4),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            transform: translateY(-2px) scale(1.02);
+            font-weight: 700;
+        }
+
+        .filter-btn.active::after {
+            content: '✓';
+            margin-left: 5px;
+            font-size: 0.85em;
+            animation: checkmark 0.3s ease;
+        }
+
+        @keyframes checkmark {
+            0% {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: scale(0);
             }
-            to {
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1);
             }
         }
 
-        /* Grille de cadres */
+        .filter-btn:active {
+            transform: translateY(-1px) scale(1.02);
+            transition: all 0.1s ease;
+        }
+
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            padding: 0 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px 15px;
         }
 
-        /* Cadre produit */
         .product-frame {
-            background: white;
-            border-radius: 20px;
+            background: linear-gradient(145deg, #1a1a1a 0%, #151515 100%);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7),
+                        0 4px 10px rgba(29, 77, 46, 0.2),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            animation: fadeInUp 0.6s ease-out backwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .product-frame:nth-child(1) { animation-delay: 0.1s; }
-        .product-frame:nth-child(2) { animation-delay: 0.2s; }
-        .product-frame:nth-child(3) { animation-delay: 0.3s; }
-        .product-frame:nth-child(4) { animation-delay: 0.4s; }
-        .product-frame:nth-child(5) { animation-delay: 0.5s; }
-        .product-frame:nth-child(6) { animation-delay: 0.6s; }
-
-        .product-frame:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            border: 1px solid #2a2a2a;
+            animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+            transform-origin: center;
         }
 
         .product-frame::before {
@@ -133,76 +220,86 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(30,60,114,0.1) 0%, rgba(42,82,152,0.1) 100%);
+            background: linear-gradient(135deg, rgba(29, 77, 46, 0.15) 0%, rgba(45, 95, 63, 0.15) 100%);
             opacity: 0;
             transition: opacity 0.4s ease;
             z-index: 1;
+            pointer-events: none;
         }
 
-        .product-frame::after {
-            content: '​🔥​';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2em;
-            opacity: 0;
-            transform: scale(0) rotate(-180deg);
-            transition: all 0.4s ease;
-            z-index: 2;
+        .product-frame:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8),
+                        0 8px 20px rgba(29, 77, 46, 0.4),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: #2d5f3f;
         }
 
         .product-frame:hover::before {
             opacity: 1;
         }
 
-        .product-frame:hover::after {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .product-frame:active {
+            transform: translateY(-4px) scale(1.01);
+            transition: all 0.1s ease;
         }
 
         .frame-image {
             width: 100%;
-            height: 300px;
+            height: 150px;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .product-frame:hover .frame-image {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(1deg);
         }
 
         .frame-content {
-            padding: 30px;
+            padding: 12px;
             text-align: center;
             position: relative;
             z-index: 2;
         }
 
         .frame-title {
-            font-size: 1.8em;
-            color: #1a4d2e;
-            margin-bottom: 15px;
+            font-size: 1em;
+            color: #fff;
+            margin-bottom: 5px;
             font-weight: 600;
-            transition: color 0.3s ease;
+            line-height: 1.3;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .product-frame:hover .frame-title {
             color: #2d5f3f;
+            transform: translateY(-2px);
+            text-shadow: 0 2px 10px rgba(29, 77, 46, 0.4);
         }
 
         .frame-subtitle {
-            color: #666;
-            font-size: 1.05em;
-            line-height: 1.6;
-            transition: color 0.3s ease;
+            color: #888;
+            font-size: 0.8em;
+            line-height: 1.3;
+            transition: all 0.3s ease;
         }
 
         .product-frame:hover .frame-subtitle {
-            color: #333;
+            color: #aaa;
         }
 
-        /* Pop-up */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -210,32 +307,40 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.92);
+            background: rgba(0,0,0,0.95);
             z-index: 2000;
             overflow-y: auto;
-            padding: 30px 15px;
         }
 
         .popup-overlay.active {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            animation: overlayFadeIn 0.3s ease;
+        }
+
+        @keyframes overlayFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .popup-container {
-            background: white;
-            border-radius: 25px;
-            max-width: 1000px;
+            background: #0f0f0f;
             width: 100%;
+            min-height: 100vh;
             position: relative;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-            animation: popupSlideIn 0.4s ease;
+            animation: popupSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 50px rgba(29, 77, 46, 0.2);
         }
 
-        @keyframes popupSlideIn {
+        @keyframes popupSlideUp {
             from {
                 opacity: 0;
-                transform: translateY(-30px) scale(0.95);
+                transform: translateY(100%) scale(0.9);
             }
             to {
                 opacity: 1;
@@ -244,10 +349,156 @@
         }
 
         .popup-close {
-            position: absolute;
-            top: 25px;
-            right: 25px;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 71, 87, 0.9);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(255,71,87,0.5),
+                        0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .popup-close:hover {
             background: #ff4757;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 6px 30px rgba(255,71,87,0.7);
+        }
+
+        .popup-close:active {
+            transform: rotate(90deg) scale(0.95);
+        }
+
+        .popup-product-title {
+            font-size: 1.8em;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+            padding: 20px 20px 0 20px;
+            animation: titleFadeIn 0.5s ease 0.2s backwards;
+        }
+
+        @keyframes titleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .popup-media-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 0 20px 20px 20px;
+            animation: mediaFadeIn 0.5s ease 0.3s backwards;
+        }
+
+        @keyframes mediaFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .media-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6),
+                        0 4px 12px rgba(29, 77, 46, 0.2);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid #2a2a2a;
+        }
+
+        .media-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7),
+                        0 6px 18px rgba(29, 77, 46, 0.3);
+            border-color: #2d5f3f;
+        }
+
+        .popup-media-section img,
+        .popup-media-section video {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .media-item:hover img,
+        .media-item:hover video {
+            transform: scale(1.05);
+        }
+
+        .media-item img {
+            cursor: zoom-in;
+        }
+
+        /* Lightbox pour image agrandie */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            animation: overlayFadeIn 0.3s ease;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-image {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+            animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 71, 87, 0.9);
             color: white;
             border: none;
             width: 45px;
@@ -256,102 +507,143 @@
             font-size: 26px;
             cursor: pointer;
             z-index: 10;
-            box-shadow: 0 4px 15px rgba(255,71,87,0.4);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255,71,87,0.5);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
         }
 
-        .popup-close:hover {
-            background: #ee5a6f;
+        .lightbox-close:hover {
+            background: #ff4757;
             transform: rotate(90deg) scale(1.1);
         }
 
-        .popup-media-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            padding: 40px 35px 30px 35px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 25px 25px 0 0;
-        }
-
-        .media-item {
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .popup-media-section img,
-        .popup-media-section video {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            display: block;
+        .lightbox-close:active {
+            transform: rotate(90deg) scale(0.95);
         }
 
         .popup-info-section {
-            padding: 35px 40px 45px 40px;
+            padding: 0 20px 30px 20px;
+            animation: infoFadeIn 0.5s ease 0.4s backwards;
         }
 
-        .popup-product-title {
-            font-size: 2.3em;
-            color: #1a4d2e;
+        @keyframes infoFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
             margin-bottom: 20px;
-            font-weight: 700;
         }
 
-        .popup-pricing {
+        .pricing-card {
             background: linear-gradient(135deg, #2d5f3f 0%, #1a4d2e 100%);
             color: white;
-            padding: 20px 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 6px 20px rgba(29, 77, 46, 0.4);
+            padding: 15px 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(29, 77, 46, 0.4),
+                        0 2px 8px rgba(0,0,0,0.3);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(45, 95, 63, 0.3);
+            animation: pricingCardIn 0.5s ease backwards;
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .pricing-title {
-            font-size: 0.95em;
-            opacity: 0.9;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        @keyframes pricingCardIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
-        .pricing-details {
-            font-size: 1.8em;
+        .pricing-card:nth-child(1) { animation-delay: 0.5s; }
+        .pricing-card:nth-child(2) { animation-delay: 0.55s; }
+        .pricing-card:nth-child(3) { animation-delay: 0.6s; }
+        .pricing-card:nth-child(4) { animation-delay: 0.65s; }
+        .pricing-card:nth-child(5) { animation-delay: 0.7s; }
+        .pricing-card:nth-child(6) { animation-delay: 0.75s; }
+
+        .pricing-card:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(29, 77, 46, 0.6),
+                        0 4px 12px rgba(0,0,0,0.4);
+            border-color: rgba(45, 95, 63, 0.6);
+        }
+
+        .pricing-card:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .pricing-amount {
+            font-size: 1.3em;
             font-weight: bold;
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .pricing-weight {
+            font-size: 0.9em;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .popup-description {
-            color: #444;
-            line-height: 1.9;
-            font-size: 1.1em;
-            padding: 20px;
-            background: #f8f9fa;
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 1em;
+            padding: 15px;
+            background: #1a1a1a;
             border-radius: 12px;
-            border-left: 4px solid #2d5f3f;
-            margin-bottom: 25px;
+            border-left: 3px solid #2d5f3f;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .popup-description:hover {
+            border-left-width: 5px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            background: #1d1d1d;
         }
 
         .booking-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             background: linear-gradient(135deg, #2d5f3f 0%, #1a4d2e 100%);
             color: white;
             border: none;
-            padding: 18px 40px;
+            padding: 16px 30px;
             border-radius: 50px;
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 25px rgba(29, 77, 46, 0.4);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 6px 25px rgba(29, 77, 46, 0.5),
+                        0 3px 12px rgba(0,0,0,0.3);
+            width: 100%;
             position: relative;
             overflow: hidden;
         }
@@ -369,70 +661,134 @@
             transition: width 0.6s ease, height 0.6s ease;
         }
 
-        .booking-button:hover::before {
-            width: 300px;
-            height: 300px;
+        .booking-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 35px rgba(29, 77, 46, 0.7),
+                        0 5px 18px rgba(0,0,0,0.4);
         }
 
-        .booking-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(29, 77, 46, 0.6);
+        .booking-button:hover::before {
+            width: 400px;
+            height: 400px;
         }
 
         .booking-button:active {
-            transform: translateY(-1px);
+            transform: translateY(-2px) scale(1);
+            transition: all 0.1s ease;
         }
 
         .message-icon {
-            font-size: 1.4em;
-            animation: messageIconBounce 2s ease-in-out infinite;
+            font-size: 1.3em;
+            animation: iconBounce 2s ease-in-out infinite;
             position: relative;
             z-index: 1;
         }
 
-        @keyframes messageIconBounce {
+        @keyframes iconBounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
 
-        .button-text {
-            position: relative;
-            z-index: 1;
-        }
+        @media (min-width: 769px) {
+            .header-section {
+                position: static;
+                padding: 40px 20px;
+            }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+
             .main-title {
-                font-size: 2.2em;
-                margin-bottom: 50px;
+                font-size: 3em;
             }
 
             .products-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
                 gap: 30px;
-                padding: 0 10px;
+                padding: 30px;
+            }
+
+            .product-frame:hover {
+                transform: translateY(-10px) scale(1.05);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.9),
+                            0 10px 25px rgba(29, 77, 46, 0.5);
+            }
+
+            .frame-image {
+                height: 250px;
+            }
+
+            .frame-content {
+                padding: 20px;
+            }
+
+            .frame-title {
+                font-size: 1.4em;
+            }
+
+            .frame-subtitle {
+                font-size: 1em;
+            }
+
+            .popup-container {
+                border-radius: 25px;
+                max-width: 900px;
+                margin: 30px;
+                min-height: auto;
+            }
+
+            .popup-close {
+                position: absolute;
+            }
+
+            .popup-product-title {
+                font-size: 2.5em;
+                padding: 30px 20px 20px 20px;
             }
 
             .popup-media-section {
-                grid-template-columns: 1fr;
-                padding: 30px 20px 20px 20px;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                padding: 0 30px 30px 30px;
             }
 
             .popup-media-section img,
             .popup-media-section video {
-                height: 250px;
+                height: 350px;
             }
 
             .popup-info-section {
-                padding: 25px 20px 35px 20px;
+                padding: 0 35px 40px 35px;
             }
 
-            .popup-product-title {
-                font-size: 1.8em;
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
             }
 
-            .pricing-details {
-                font-size: 1.5em;
+            .pricing-card {
+                padding: 15px;
+            }
+
+            .pricing-amount {
+                font-size: 1.3em;
+            }
+
+            .booking-button {
+                width: auto;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     </style>
@@ -440,17 +796,30 @@
 <body>
     <div class="container">
         <div class="header-section">
-            <img src="logo.png" alt="Royal Smoke Logo" class="logo">
-            <h1 class="main-title">Découvrez Nos Produits</h1>
+            <div class="header-content">
+                <img src="logo.png" alt="Royal Smoke Logo" class="logo">
+                <h1 class="main-title">Nos Produits</h1>
+            </div>
+        </div>
+        
+        <div class="filters-section">
+            <div class="filters-label">Catégories</div>
+            <div class="filters-container">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="premium">Premium</button>
+                <button class="filter-btn" data-filter="standard">Standard</button>
+                <button class="filter-btn" data-filter="edition">Édition limitée</button>
+            </div>
         </div>
         
         <div class="products-grid" id="productsGrid"></div>
     </div>
 
-    <!-- Pop-up Produit -->
     <div class="popup-overlay" id="productPopup">
         <div class="popup-container">
             <button class="popup-close" id="popupClose">×</button>
+            
+            <h2 class="popup-product-title" id="popupTitle"></h2>
             
             <div class="popup-media-section">
                 <div class="media-item">
@@ -462,28 +831,25 @@
             </div>
             
             <div class="popup-info-section">
-                <h2 class="popup-product-title" id="popupTitle"></h2>
-                
-                <div class="popup-pricing">
-                    <div class="pricing-title">Tarifs</div>
-                    <div class="pricing-details" id="popupPrice"></div>
-                </div>
+                <div class="pricing-grid" id="pricingGrid"></div>
                 
                 <div class="popup-description" id="popupDescription"></div>
                 
                 <a href="#" class="booking-button" id="bookingButton">
                     <span class="message-icon">💬</span>
-                    <span class="button-text">Réserver maintenant</span>
+                    <span>Réserver maintenant</span>
                 </a>
             </div>
         </div>
     </div>
 
+    <!-- Lightbox pour agrandir l'image -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">×</button>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+    </div>
+
     <script>
-        // ======================================
-        // 📦 CONFIGURATION DES PRODUITS
-        // ======================================
-        
         const products = [
             {
                 title: "Jaune Mousseux",
@@ -492,7 +858,8 @@
                 video: "videos/jauneilpadrino.mp4",
                 pricing: "20€/3,6G - 40€/7,2G - 50€/10G - 110€/25G - 180/50G - 320€/100G",
                 description: "Jaune mousseux premium, une bonne odeur et un bon high, vraie qualité la mousse ++",
-                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl"
+                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+                category: "premium"
             },
             {
                 title: "Solution Business Pro",
@@ -500,8 +867,9 @@
                 image: "images/produit2.jpg",
                 video: "videos/produit2.mp4",
                 pricing: "899€ - Offre spéciale : 799€",
-                description: "Conçue spécialement pour répondre aux besoins des entreprises modernes. Interface intuitive, intégration facile avec vos outils existants, et évolutivité garantie. Compatible avec tous les systèmes d'exploitation. Formation en ligne offerte.",
-                bookingLink: "https://wa.me/33612345678?text=Bonjour,%20je%20souhaite%20réserver%20la%20Solution%20Business%20Pro"
+                description: "Conçue spécialement pour répondre aux besoins des entreprises modernes.",
+                bookingLink: "https://wa.me/33612345678?text=Bonjour",
+                category: "premium"
             },
             {
                 title: "Édition Limitée Collector",
@@ -509,8 +877,9 @@
                 image: "images/produit3.jpg",
                 video: "videos/produit3.mp4",
                 pricing: "2 499€ (100 exemplaires uniquement)",
-                description: "Une édition limitée exceptionnelle, produite à seulement 100 exemplaires numérotés et certifiés. Matériaux nobles, finitions artisanales haut de gamme, et emballage premium avec certificat d'authenticité. Livré avec un coffret collector exclusif.",
-                bookingLink: "https://wa.me/33612345678?text=Bonjour,%20je%20souhaite%20réserver%20l'Édition%20Limitée%20Collector"
+                description: "Une édition limitée exceptionnelle, produite à seulement 100 exemplaires.",
+                bookingLink: "https://wa.me/33612345678?text=Bonjour",
+                category: "edition"
             },
             {
                 title: "Formule Découverte",
@@ -518,8 +887,9 @@
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
                 pricing: "349€ ou 3x 120€ sans frais",
-                description: "La solution idéale pour découvrir notre gamme sans engagement. Parfaitement adapté aux débutants avec un guide de prise en main complet. Mise à niveau possible vers les versions supérieures. Satisfait ou remboursé sous 30 jours.",
-                bookingLink: "https://wa.me/33612345678?text=Bonjour,%20je%20souhaite%20réserver%20la%20Formule%20Découverte"
+                description: "La solution idéale pour découvrir notre gamme sans engagement.",
+                bookingLink: "https://wa.me/33612345678?text=Bonjour",
+                category: "standard"
             },
             {
                 title: "Pack Famille XL",
@@ -527,8 +897,9 @@
                 image: "images/produit5.jpg",
                 video: "videos/produit5.mp4",
                 pricing: "599€ - Licence 5 utilisateurs",
-                description: "Un pack complet pensé pour les familles nombreuses. Jusqu'à 5 profils utilisateurs personnalisables, contrôle parental intégré, et synchronisation automatique entre tous les appareils. Mises à jour gratuites à vie et stockage cloud 100GB inclus.",
-                bookingLink: "https://wa.me/33612345678?text=Bonjour,%20je%20souhaite%20réserver%20le%20Pack%20Famille%20XL"
+                description: "Un pack complet pensé pour les familles nombreuses.",
+                bookingLink: "https://wa.me/33612345678?text=Bonjour",
+                category: "standard"
             },
             {
                 title: "Version Studio Créative",
@@ -536,14 +907,11 @@
                 image: "images/produit6.jpg",
                 video: "videos/produit6.mp4",
                 pricing: "1 599€ ou abonnement 79€/mois",
-                description: "L'outil ultime pour les créateurs professionnels. Bibliothèque de ressources premium illimitée, export 4K/8K, plugins exclusifs et accès à notre communauté de créateurs. Support technique dédié avec expert assigné et sessions de coaching mensuelles.",
-                bookingLink: "https://wa.me/33612345678?text=Bonjour,%20je%20souhaite%20réserver%20la%20Version%20Studio%20Créative"
+                description: "L'outil ultime pour les créateurs professionnels.",
+                bookingLink: "https://wa.me/33612345678?text=Bonjour",
+                category: "premium"
             }
         ];
-
-        // ======================================
-        // 🚀 CODE JAVASCRIPT
-        // ======================================
 
         const productsGrid = document.getElementById('productsGrid');
         const productPopup = document.getElementById('productPopup');
@@ -551,41 +919,99 @@
         const popupImage = document.getElementById('popupImage');
         const popupVideo = document.getElementById('popupVideo');
         const popupTitle = document.getElementById('popupTitle');
-        const popupPrice = document.getElementById('popupPrice');
+        const pricingGrid = document.getElementById('pricingGrid');
         const popupDescription = document.getElementById('popupDescription');
         const bookingButton = document.getElementById('bookingButton');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
 
-        // Générer les cadres de produits
-        products.forEach((product, index) => {
-            const frame = document.createElement('div');
-            frame.className = 'product-frame';
-            frame.innerHTML = `
-                <img src="${product.image}" alt="${product.title}" class="frame-image">
-                <div class="frame-content">
-                    <h2 class="frame-title">${product.title}</h2>
-                    <p class="frame-subtitle">${product.subtitle}</p>
-                </div>
-            `;
+        function renderProducts(filter = 'all') {
+            productsGrid.innerHTML = '';
             
-            frame.addEventListener('click', () => openPopup(product));
-            productsGrid.appendChild(frame);
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            filteredProducts.forEach((product) => {
+                const frame = document.createElement('div');
+                frame.className = 'product-frame';
+                frame.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" class="frame-image">
+                    <div class="frame-content">
+                        <h2 class="frame-title">${product.title}</h2>
+                        <p class="frame-subtitle">${product.subtitle}</p>
+                    </div>
+                `;
+                
+                frame.addEventListener('click', () => openPopup(product));
+                productsGrid.appendChild(frame);
+            });
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProducts(btn.dataset.filter);
+            });
         });
 
-        // Ouvrir la pop-up
         function openPopup(product) {
             popupImage.src = product.image;
             popupImage.alt = product.title;
             popupVideo.src = product.video;
             popupTitle.textContent = product.title;
-            popupPrice.textContent = product.pricing;
             popupDescription.textContent = product.description;
             bookingButton.href = product.bookingLink;
+            
+            // Ajouter l'événement de clic sur l'image pour ouvrir le lightbox
+            popupImage.onclick = () => openLightbox(product.image);
+            
+            // Créer les cartes de tarifs
+            pricingGrid.innerHTML = '';
+            const prices = product.pricing.split(' - ');
+            prices.forEach(price => {
+                const card = document.createElement('div');
+                card.className = 'pricing-card';
+                
+                // Séparer le prix et le poids
+                const parts = price.split('/');
+                if (parts.length === 2) {
+                    card.innerHTML = `
+                        <div class="pricing-amount">${parts[0]}</div>
+                        <div class="pricing-weight">${parts[1]}</div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="pricing-amount">${price}</div>
+                    `;
+                }
+                pricingGrid.appendChild(card);
+            });
             
             productPopup.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // Fermer la pop-up
+        function openLightbox(imageSrc) {
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
         function closePopup() {
             productPopup.classList.remove('active');
             document.body.style.overflow = 'auto';
@@ -602,9 +1028,15 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                closePopup();
+                if (lightbox.classList.contains('active')) {
+                    closeLightbox();
+                } else {
+                    closePopup();
+                }
             }
         });
+
+        renderProducts();
     </script>
 </body>
 </html>
