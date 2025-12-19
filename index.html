@@ -710,7 +710,13 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.5);
             background: #1d1d1d;
         }
-
+		
+        .booking-buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+		
         .booking-button {
             display: flex;
             align-items: center;
@@ -878,8 +884,13 @@
                 font-size: 1.3em;
             }
 
+            .booking-buttons-container {
+                flex-direction: row;
+            }
+
             .booking-button {
                 width: auto;
+                flex: 1;
             }
         }
 
@@ -924,6 +935,9 @@
         <div class="products-grid" id="productsGrid"></div>
     </div>
 
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+
     <div class="popup-overlay" id="productPopup">
         <div class="popup-container">
             <button class="popup-close" id="popupClose">×</button>
@@ -947,10 +961,17 @@
                 
                 <div class="popup-description" id="popupDescription"></div>
                 
-                <a href="#" class="booking-button" id="bookingButton">
-                    <span class="message-icon">📲​</span>
-                    <span>Passer commande sur signal</span>
-                </a>
+                <div class="booking-buttons-container">
+                    <a href="#" class="booking-button" id="bookingButton">
+                        <span class="message-icon">📲​</span>
+                        <span>Contact Signal</span>
+                    </a>
+                    
+                    <a href="#" class="booking-button" id="bookingButton2">
+                        <span class="message-icon">📲​</span>
+                        <span>Contact Telegram</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -964,13 +985,14 @@
     <script>
         const products = [
             {
-                title: "Jaune 🇲🇦​🧽​",
+                title: "Jaune ​🧽🇲🇦​",
                 subtitle: "Il Padrino 🇮🇹​",
                 image: "images/ilpadrino.png",
                 video: "videos/jauneilpadrino.mp4",
                 pricing: "20€/4G - 110€/25G - 40€/8G - 180€/50G - 50€/10G - 320€/100G",
                 description: "Jaune mousseux premium, une bonne odeur et un bon high, vraie qualité la mousse ++",
-                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+                bookingLink1: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+				bookingLink2: "https://t.me/royals37",
                 category: "hash"
             }
         ];
@@ -985,6 +1007,7 @@
         const pricingGrid = document.getElementById('pricingGrid');
         const popupDescription = document.getElementById('popupDescription');
         const bookingButton = document.getElementById('bookingButton');
+        const bookingButton2 = document.getElementById('bookingButton2');
         const filterButtons = document.querySelectorAll('.filter-btn');
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightboxImage');
@@ -1029,6 +1052,14 @@
             popupSubtitle.textContent = product.subtitle;
             popupDescription.textContent = product.description;
             bookingButton.href = product.bookingLink;
+			
+			// Gérer le deuxième bouton
+            if (product.bookingLink2) {
+                bookingButton2.href = product.bookingLink2;
+                bookingButton2.style.display = 'flex';
+            } else {
+                bookingButton2.style.display = 'none';
+            }
             
             // Ajouter l'événement de clic sur l'image pour ouvrir le lightbox
             popupImage.onclick = () => openLightbox(product.image);
