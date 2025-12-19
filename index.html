@@ -439,18 +439,41 @@
             margin-bottom: 5px;
             font-weight: 700;
             text-align: center;
-            padding: 20px 20px 0 20px;
-            animation: titleFadeIn 0.5s ease 0.2s backwards;
+            padding: 0;
+            animation: none;
         }
 
         .popup-product-subtitle {
             font-size: 1em;
             color: #888;
-            margin-bottom: 15px;
+            margin-bottom: 0px;
             text-align: center;
-            padding: 0 20px;
-            animation: titleFadeIn 0.5s ease 0.25s backwards;
+            padding: 0;
+            animation: none;
         }
+
+		.popup-header-box {
+			background: linear-gradient(145deg, #1a1a1a 0%, #151515 100%);
+			padding: 20px;
+			margin: 20px 20px 15px 20px;
+			border-radius: 16px;
+			border: 2px solid #2d5f3f;
+			box-shadow: 0 8px 25px rgba(0,0,0,0.7),
+                0 4px 10px rgba(29, 77, 46, 0.3),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+			animation: headerBoxFadeIn 0.5s ease 0.2s backwards;
+		}
+
+		@keyframes headerBoxFadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-20px) scale(0.95);
+		}
+			to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+			}
+		}
 
         @keyframes titleFadeIn {
             from {
@@ -884,6 +907,7 @@
                 <p><strong>Uniquement en livraison</strong> (pas de frais)</p>
                 <p><strong>Secteur :</strong> Tours et villes alentours</p>
                 <p><strong></strong> Plus loin sur demande</p>
+				<p><strong>Prise de commande sur Signal</strong></p>
             </div>
         </div>
         
@@ -891,8 +915,8 @@
             <div class="filters-label">Catégories</div>
             <div class="filters-container">
                 <button class="filter-btn active" data-filter="all">Tous</button>
-                <button class="filter-btn" data-filter="hash">Hash</button>
-                <button class="filter-btn" data-filter="weed">Weed</button>
+                <button class="filter-btn" data-filter="hash">🍫 Hash 🍫</button>
+                <button class="filter-btn" data-filter="weed">🌳 Weed 🌳</button>
                 <button class="filter-btn" data-filter="avenir">A venir...</button>				
             </div>
         </div>
@@ -904,8 +928,10 @@
         <div class="popup-container">
             <button class="popup-close" id="popupClose">×</button>
             
-            <h2 class="popup-product-title" id="popupTitle"></h2>
-            <p class="popup-product-subtitle" id="popupSubtitle"></p>
+            <div class="popup-header-box">
+				<h2 class="popup-product-title" id="popupTitle"></h2>
+				<p class="popup-product-subtitle" id="popupSubtitle"></p>
+			</div>
             
             <div class="popup-media-section">
                 <div class="media-item">
@@ -938,7 +964,7 @@
     <script>
         const products = [
             {
-                title: "Jaune Mousseux ​🧽​",
+                title: "Jaune 🇲🇦​🧽​",
                 subtitle: "Il Padrino 🇮🇹​",
                 image: "images/ilpadrino.png",
                 video: "videos/jauneilpadrino.mp4",
@@ -946,66 +972,6 @@
                 description: "Jaune mousseux premium, une bonne odeur et un bon high, vraie qualité la mousse ++",
                 bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
                 category: "hash"
-            },
-            {
-                title: "Dry Sift 🍫​",
-                subtitle: "Mimosa 🍊​",
-                image: "images/produit2.jpg",
-                video: "videos/produit2.mp4",
-                pricing: "20€/2G - 70€/10G - 40€/5G - + en privé",
-                description: "Dry Sift 73u premium, top qualité prix !",
-                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
-                category: "hash"
-            },
-            {
-                title: "Hollandaise 🇳🇱​",
-                subtitle: "Amnesia Lemon 🍋​",
-                image: "images/produit3.jpg",
-                video: "videos/produit3.mp4",
-                pricing: "20€/2G - 70€/10G - 40€/5G - + en privé",
-                description: "Une weed classique mais magnifique, top rapport qualité prix !",
-                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
-                category: "weed"
-            },
-            {
-                title: "CaliSpain ​🇺🇸🇪🇸​",
-                subtitle: "Rainbow Truflle ​🌈​",
-                image: "images/produit4.jpg",
-                video: "videos/produit4.mp4",
-                pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
-                description: "Graine californienne produite en espagne, qualité incroyable !",
-                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
-                category: "weed"
-            },
-            {
-                title: "CaliSpain ​🇺🇸🇪🇸",
-                subtitle: "Blue Cookies 🍪​",
-                image: "images/produit4.jpg",
-                video: "videos/produit4.mp4",
-                pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
-                description: "La solution idéale pour découvrir notre gamme sans engagement.",
-                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
-                category: "weed"
-            },
-            {
-                title: "CaliSpain ​🇺🇸🇪🇸",
-                subtitle: "Vanilla Late ​🍦​​",
-                image: "images/produit4.jpg",
-                video: "videos/produit4.mp4",
-                pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
-                description: "La solution idéale pour découvrir notre gamme sans engagement.",
-                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
-                category: "weed"
-            },
-            {
-                title: "CaliSpain ​🇺🇸🇪🇸",
-                subtitle: "Tropicanna Cherry 🍒​​​",
-                image: "images/produit4.jpg",
-                video: "videos/produit4.mp4",
-                pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
-                description: "La solution idéale pour découvrir notre gamme sans engagement.",
-                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
-                category: "weed"
             }
         ];
 
