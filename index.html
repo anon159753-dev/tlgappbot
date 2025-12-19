@@ -17,7 +17,7 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-            padding-top: 60px;
+            padding-top: 0;
         }
 
         body::before {
@@ -41,24 +41,28 @@
         }
 
         .header-section {
-            background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
-            padding: 30px 20px 25px 20px;
-            position: sticky;
-            top: 60px;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            padding: 80px 20px 25px 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .header-content {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
+            background: linear-gradient(145deg, #1a1a1a 0%, #151515 100%);
+            padding: 15px 30px;
+            border-radius: 20px;
+            border: 2px solid #2d5f3f;
+            box-shadow: 0 8px 100px rgba(29, 77, 46, 0.4),
+                        0 4px 15px rgba(0,0,0,0.6),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         .logo {
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
             filter: drop-shadow(0 4px 12px rgba(29, 77, 46, 0.6));
             animation: logoFloat 3s ease-in-out infinite;
         }
@@ -70,9 +74,54 @@
 
         .main-title {
             color: #fff;
-            font-size: 1.6em;
+            font-size: 1.3em;
             font-weight: 700;
             text-shadow: 0 2px 10px rgba(29, 77, 46, 0.5);
+			animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, #1a4d2e 0%, #2d5f3f 100%);
+            padding: 20px 15px;
+            margin: 0 15px 20px 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 95, 63, 0.3);
+            box-shadow: 0 6px 20px rgba(29, 77, 46, 0.4),
+                        0 3px 10px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            animation: bannerFadeIn 0.6s ease backwards;
+        }
+
+        @keyframes bannerFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-banner-title {
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-banner-content {
+            color: #e0e0e0;
+            font-size: 0.9em;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .info-banner-content p {
+            margin: 5px 0;
         }
 
         .filters-section {
@@ -332,7 +381,8 @@
         .popup-container {
             background: #0f0f0f;
             width: 100%;
-            min-height: 100vh;
+            max-height: 100vh;
+            overflow-y: auto;
             position: relative;
             animation: popupSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 0 50px rgba(29, 77, 46, 0.2);
@@ -351,7 +401,7 @@
 
         .popup-close {
             position: fixed;
-            top: 15px;
+            top: 60px;
             right: 15px;
             background: rgba(255, 71, 87, 0.9);
             color: white;
@@ -382,13 +432,22 @@
         }
 
         .popup-product-title {
-            font-size: 1.8em;
+            font-size: 1.5em;
             color: #fff;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             font-weight: 700;
             text-align: center;
-            padding: 20px 20px 0 20px;
+            padding: 60px 20px 0 20px;
             animation: titleFadeIn 0.5s ease 0.2s backwards;
+        }
+
+        .popup-product-subtitle {
+            font-size: 1em;
+            color: #888;
+            margin-bottom: 15px;
+            text-align: center;
+            padding: 0 20px;
+            animation: titleFadeIn 0.5s ease 0.25s backwards;
         }
 
         @keyframes titleFadeIn {
@@ -406,7 +465,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            padding: 0 20px 20px 20px;
+            padding: 0 20px 15px 20px;
             animation: mediaFadeIn 0.5s ease 0.3s backwards;
         }
 
@@ -440,7 +499,7 @@
         .popup-media-section img,
         .popup-media-section video {
             width: 100%;
-            height: 180px;
+            height: 140px;
             object-fit: cover;
             display: block;
             transition: transform 0.4s ease;
@@ -497,7 +556,7 @@
 
         .lightbox-close {
             position: absolute;
-            top: 20px;
+            top: 60px;
             right: 20px;
             background: rgba(255, 71, 87, 0.9);
             color: white;
@@ -526,7 +585,7 @@
         }
 
         .popup-info-section {
-            padding: 0 20px 30px 20px;
+            padding: 0 20px 20px 20px;
             animation: infoFadeIn 0.5s ease 0.4s backwards;
         }
 
@@ -544,14 +603,14 @@
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .pricing-card {
             background: linear-gradient(135deg, #2d5f3f 0%, #1a4d2e 100%);
             color: white;
-            padding: 15px 10px;
+            padding: 12px 8px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(29, 77, 46, 0.4),
                         0 2px 8px rgba(0,0,0,0.3);
@@ -559,7 +618,7 @@
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 1px solid rgba(45, 95, 63, 0.3);
             animation: pricingCardIn 0.5s ease backwards;
-            min-height: 70px;
+            min-height: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -595,14 +654,14 @@
         }
 
         .pricing-amount {
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             word-break: break-word;
         }
 
         .pricing-weight {
-            font-size: 0.9em;
+            font-size: 0.85em;
             opacity: 0.9;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -610,13 +669,13 @@
 
         .popup-description {
             color: #ccc;
-            line-height: 1.7;
-            font-size: 1em;
-            padding: 15px;
+            line-height: 1.6;
+            font-size: 0.95em;
+            padding: 12px;
             background: #1a1a1a;
             border-radius: 12px;
             border-left: 3px solid #2d5f3f;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
         }
@@ -635,9 +694,9 @@
             background: linear-gradient(135deg, #2d5f3f 0%, #1a4d2e 100%);
             color: white;
             border: none;
-            padding: 16px 30px;
+            padding: 14px 25px;
             border-radius: 50px;
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
@@ -692,22 +751,34 @@
 
         @media (min-width: 769px) {
             .header-section {
-                position: static;
                 padding: 40px 20px;
             }
 
             .header-content {
-                flex-direction: column;
                 gap: 20px;
+                padding: 20px 40px;
             }
 
             .logo {
-                width: 120px;
-                height: 120px;
+                width: 80px;
+                height: 80px;
             }
 
             .main-title {
-                font-size: 3em;
+                font-size: 2em;
+            }
+
+            .info-banner {
+                margin: 0 30px 30px 30px;
+                padding: 25px 30px;
+            }
+
+            .info-banner-title {
+                font-size: 1.3em;
+            }
+
+            .info-banner-content {
+                font-size: 1em;
             }
 
             .products-grid {
@@ -802,6 +873,17 @@
                 <h1 class="main-title">Royal Smoke</h1>
             </div>
         </div>
+
+        <div class="info-banner">
+            <div class="info-banner-title">🔥 Informations 🔥</div>
+            <div class="info-banner-content">
+                <p><strong>Horaires :</strong> Tout les jours de 12h à 00h</p>
+                <p><strong>Minimum 40€ de commande</strong></p>
+				<p><strong>Uniquement en livraison</strong> (pas de frais)</p>
+                <p><strong>Secteur :</strong> Tours et villes alentours</p>
+				<p><strong></strong> Plus loin sur demande</p>
+            </div>
+        </div>
         
         <div class="filters-section">
             <div class="filters-label">Catégories</div>
@@ -821,6 +903,7 @@
             <button class="popup-close" id="popupClose">×</button>
             
             <h2 class="popup-product-title" id="popupTitle"></h2>
+            <p class="popup-product-subtitle" id="popupSubtitle"></p>
             
             <div class="popup-media-section">
                 <div class="media-item">
@@ -853,8 +936,8 @@
     <script>
         const products = [
             {
-                title: "Jaune Mousseux",
-                subtitle: "Il Padrino",
+                title: "Jaune Mousseux ​🧽​",
+                subtitle: "Il Padrino 🇮🇹​",
                 image: "images/ilpadrino.png",
                 video: "videos/jauneilpadrino.mp4",
                 pricing: "20€/3.6G - 110€/25G - 40€/7.2G - 180€/50G - 50€/10G - 320€/100G",
@@ -863,8 +946,8 @@
                 category: "hash"
             },
             {
-                title: "Dry Sift 73μ",
-                subtitle: "STRAIN",
+                title: "Dry Sift 🍫​",
+                subtitle: "Mimosa 🍊​",
                 image: "images/produit2.jpg",
                 video: "videos/produit2.mp4",
                 pricing: "20€/2G - 70€/10G - 40€/5G - + en privé",
@@ -873,8 +956,8 @@
                 category: "hash"
             },
             {
-                title: "Top Hollandaise",
-                subtitle: "Amnesia Lemon",
+                title: "Hollandaise 🇳🇱​",
+                subtitle: "Amnesia Lemon 🍋​",
                 image: "images/produit3.jpg",
                 video: "videos/produit3.mp4",
                 pricing: "20€/2G - 70€/10G - 40€/5G - + en privé",
@@ -883,8 +966,8 @@
                 category: "weed"
             },
             {
-                title: "CaliSpain",
-                subtitle: "London Pound Cake",
+                title: "CaliSpain ​🇺🇸🇪🇸​",
+                subtitle: "Rainbow Truflle ​🌈​",
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
                 pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
@@ -893,8 +976,8 @@
                 category: "weed"
             },
             {
-                title: "CaliSpain",
-                subtitle: "Glookies",
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Blue Cookies 🍪​",
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
                 pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
@@ -903,22 +986,22 @@
                 category: "weed"
             },
             {
-                title: "Cali US",
-                subtitle: "Cool Whip",
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Vanilla Late ​🍦​​",
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
-                pricing: "20€/1.4G - 90€/7G - 50€/3.5G - + en privé",
-                description: "La californie a fait le déplacement jusqu'à vous !",
+                pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
+                description: "La solution idéale pour découvrir notre gamme sans engagement.",
                 bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
                 category: "weed"
             },
             {
-                title: "Cali US",
-                subtitle: "Oakland Runtz",
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Tropicanna Cherry 🍒​​​",
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
-                pricing: "20€/1.4G - 90€/7G - 50€/3.5G - + en privé",
-                description: "La californie a fait le déplacement jusqu'à vous !",
+                pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
+                description: "La solution idéale pour découvrir notre gamme sans engagement.",
                 bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
                 category: "weed"
             }
@@ -930,6 +1013,7 @@
         const popupImage = document.getElementById('popupImage');
         const popupVideo = document.getElementById('popupVideo');
         const popupTitle = document.getElementById('popupTitle');
+        const popupSubtitle = document.getElementById('popupSubtitle');
         const pricingGrid = document.getElementById('pricingGrid');
         const popupDescription = document.getElementById('popupDescription');
         const bookingButton = document.getElementById('bookingButton');
@@ -974,11 +1058,29 @@
             popupImage.alt = product.title;
             popupVideo.src = product.video;
             popupTitle.textContent = product.title;
+            popupSubtitle.textContent = product.subtitle;
             popupDescription.textContent = product.description;
             bookingButton.href = product.bookingLink;
             
             // Ajouter l'événement de clic sur l'image pour ouvrir le lightbox
             popupImage.onclick = () => openLightbox(product.image);
+            
+            // Activer le mode plein écran et lecture automatique quand on clique sur play
+            popupVideo.onclick = function() {
+                if (this.paused) {
+                    this.play();
+                    // Tenter le plein écran si possible
+                    if (this.requestFullscreen) {
+                        this.requestFullscreen();
+                    } else if (this.webkitRequestFullscreen) {
+                        this.webkitRequestFullscreen();
+                    } else if (this.mozRequestFullScreen) {
+                        this.mozRequestFullScreen();
+                    } else if (this.msRequestFullscreen) {
+                        this.msRequestFullscreen();
+                    }
+                }
+            };
             
             // Créer les cartes de tarifs
             pricingGrid.innerHTML = '';
