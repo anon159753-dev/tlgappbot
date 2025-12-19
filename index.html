@@ -1067,22 +1067,8 @@
             // Ajouter l'événement de clic sur l'image pour ouvrir le lightbox
             popupImage.onclick = () => openLightbox(product.image);
             
-            // Activer le mode plein écran et lecture automatique quand on clique sur play
-            popupVideo.onclick = function() {
-                if (this.paused) {
-                    this.play();
-                    // Tenter le plein écran si possible
-                    if (this.requestFullscreen) {
-                        this.requestFullscreen();
-                    } else if (this.webkitRequestFullscreen) {
-                        this.webkitRequestFullscreen();
-                    } else if (this.mozRequestFullScreen) {
-                        this.mozRequestFullScreen();
-                    } else if (this.msRequestFullscreen) {
-                        this.msRequestFullscreen();
-                    }
-                }
-            };
+            // Réinitialiser la vidéo à chaque ouverture
+			popupVideo.load();
             
             // Créer les cartes de tarifs
             pricingGrid.innerHTML = '';
