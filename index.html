@@ -2,28 +2,22 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Royal Smoke</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--tg-theme-bg-color, #0a0a0a);
-            color: var(--tg-theme-text-color, #ffffff);
+            background: #0a0a0a;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-            padding: 0;
-            margin: 0;
-            -webkit-user-select: none;
-            user-select: none;
+            padding-top: 0;
         }
 
         body::before {
@@ -40,15 +34,14 @@
         }
 
         .container {
-            max-width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
-            padding-bottom: 20px;
         }
 
         .header-section {
-            padding: 20px 20px 15px 20px;
+            padding: 80px 20px 25px 20px;
             display: flex;
             justify-content: center;
         }
@@ -58,17 +51,18 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            background: linear-gradient(145deg, rgba(26, 26, 26, 0.95) 0%, rgba(21, 21, 21, 0.95) 100%);
-            padding: 12px 25px;
+            background: linear-gradient(145deg, #1a1a1a 0%, #151515 100%);
+            padding: 15px 30px;
             border-radius: 20px;
             border: 2px solid #2d5f3f;
-            box-shadow: 0 8px 30px rgba(29, 77, 46, 0.4),
-                        0 4px 15px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 100px rgba(29, 77, 46, 0.4),
+                        0 4px 15px rgba(0,0,0,0.6),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         .logo {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             filter: drop-shadow(0 4px 12px rgba(29, 77, 46, 0.6));
             animation: logoFloat 3s ease-in-out infinite;
         }
@@ -80,19 +74,21 @@
 
         .main-title {
             color: #fff;
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: 700;
             text-shadow: 0 2px 10px rgba(29, 77, 46, 0.5);
+			animation: logoFloat 3s ease-in-out infinite;
         }
 
         .info-banner {
             background: linear-gradient(135deg, #1a4d2e 0%, #2d5f3f 100%);
-            padding: 15px 12px;
-            margin: 0 12px 15px 12px;
+            padding: 20px 15px;
+            margin: 0 15px 20px 15px;
             border-radius: 16px;
             border: 1px solid rgba(45, 95, 63, 0.3);
             box-shadow: 0 6px 20px rgba(29, 77, 46, 0.4),
-                        0 3px 10px rgba(0,0,0,0.3);
+                        0 3px 10px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
             animation: bannerFadeIn 0.6s ease backwards;
         }
 
@@ -109,9 +105,9 @@
 
         .info-banner-title {
             color: #fff;
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -119,32 +115,28 @@
 
         .info-banner-content {
             color: #e0e0e0;
-            font-size: 0.85em;
-            line-height: 1.5;
+            font-size: 0.9em;
+            line-height: 1.6;
             text-align: center;
         }
 
         .info-banner-content p {
-            margin: 4px 0;
+            margin: 5px 0;
         }
 
         .filters-section {
-            padding: 12px;
-            background: linear-gradient(180deg, rgba(17, 17, 17, 0.95) 0%, rgba(13, 13, 13, 0.95) 100%);
+            padding: 15px;
+            background: linear-gradient(180deg, #111 0%, #0d0d0d 100%);
             border-bottom: 1px solid #2a2a2a;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
         }
 
         .filters-label {
             color: #888;
-            font-size: 0.75em;
+            font-size: 0.8em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
             text-align: center;
         }
@@ -154,6 +146,11 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 8px;
             padding: 0;
+            max-width: 100%;
+        }
+
+        .filters-container::-webkit-scrollbar {
+            display: none;
         }
 
         .filter-btn {
@@ -164,91 +161,193 @@
             border-radius: 10px;
             font-size: 0.8em;
             cursor: pointer;
+            white-space: normal;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             font-weight: 600;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-            min-height: 42px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4),
+                        inset 0 1px 0 rgba(255,255,255,0.03);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            min-height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1.2;
         }
 
-        .filter-btn:active {
-            transform: scale(0.95);
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(45, 95, 63, 0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .filter-btn:hover {
+            background: linear-gradient(145deg, #222 0%, #1a1a1a 100%);
+            border-color: #2d5f3f;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(29, 77, 46, 0.4),
+                        0 3px 10px rgba(0,0,0,0.5);
+        }
+
+        .filter-btn:hover::before {
+            width: 200px;
+            height: 200px;
         }
 
         .filter-btn.active {
             background: linear-gradient(135deg, #2d5f3f 0%, #1a4d2e 100%);
             color: #fff;
             border-color: #3d6f4f;
-            box-shadow: 0 6px 25px rgba(29, 77, 46, 0.6);
+            box-shadow: 0 6px 25px rgba(29, 77, 46, 0.6),
+                        0 3px 12px rgba(0,0,0,0.4),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            transform: translateY(-2px) scale(1.02);
             font-weight: 700;
         }
 
         .filter-btn.active::after {
             content: '✓';
             margin-left: 5px;
+            font-size: 0.85em;
+            animation: checkmark 0.3s ease;
+        }
+
+        @keyframes checkmark {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .filter-btn:active {
+            transform: translateY(-1px) scale(1.02);
+            transition: all 0.1s ease;
         }
 
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 15px 12px;
+            gap: 15px;
+            padding: 20px 15px;
         }
 
         .product-frame {
-            background: linear-gradient(145deg, rgba(26, 26, 26, 0.95) 0%, rgba(21, 21, 21, 0.95) 100%);
+            background: linear-gradient(145deg, #1a1a1a 0%, #151515 100%);
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(0,0,0,0.7),
-                        0 4px 10px rgba(29, 77, 46, 0.2);
+                        0 4px 10px rgba(29, 77, 46, 0.2),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
             border: 1px solid #2a2a2a;
-            animation: fadeInUp 0.6s ease backwards;
+            animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+            transform-origin: center;
+        }
+
+        .product-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(29, 77, 46, 0.15) 0%, rgba(45, 95, 63, 0.15) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .product-frame:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8),
+                        0 8px 20px rgba(29, 77, 46, 0.4),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            border-color: #2d5f3f;
+        }
+
+        .product-frame:hover::before {
+            opacity: 1;
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
         .product-frame:active {
-            transform: scale(0.95);
+            transform: translateY(-4px) scale(1.01);
+            transition: all 0.1s ease;
         }
 
         .frame-image {
             width: 100%;
-            height: 140px;
+            height: 150px;
             object-fit: cover;
             display: block;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .product-frame:hover .frame-image {
+            transform: scale(1.1) rotate(1deg);
         }
 
         .frame-content {
             padding: 12px;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
         .frame-title {
-            font-size: 0.95em;
+            font-size: 1em;
             color: #fff;
             margin-bottom: 5px;
             font-weight: 600;
             line-height: 1.3;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .product-frame:hover .frame-title {
+            color: #2d5f3f;
+            transform: translateY(-2px);
+            text-shadow: 0 2px 10px rgba(29, 77, 46, 0.4);
         }
 
         .frame-subtitle {
             color: #888;
             font-size: 0.8em;
             line-height: 1.3;
+            transition: all 0.3s ease;
+        }
+
+        .product-frame:hover .frame-subtitle {
+            color: #aaa;
         }
 
         .popup-overlay {
@@ -258,34 +357,103 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--tg-theme-bg-color, rgba(0,0,0,0.95));
+            background: rgba(0,0,0,0.95);
             z-index: 2000;
             overflow-y: auto;
         }
 
         .popup-overlay.active {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
             animation: overlayFadeIn 0.3s ease;
         }
 
         @keyframes overlayFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .popup-container {
-            background: var(--tg-theme-bg-color, #0f0f0f);
+            background: #0f0f0f;
             width: 100%;
-            flex: 1;
+            max-height: 100vh;
+            overflow-y: auto;
             position: relative;
-            animation: popupSlideUp 0.4s ease;
+            animation: popupSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 50px rgba(29, 77, 46, 0.2);
         }
 
         @keyframes popupSlideUp {
             from {
                 opacity: 0;
-                transform: translateY(100%);
+                transform: translateY(100%) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .popup-close {
+            position: fixed;
+            top: 60px;
+            right: 15px;
+            background: rgba(255, 71, 87, 0.9);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(255,71,87,0.5),
+                        0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .popup-close:hover {
+            background: #ff4757;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 6px 30px rgba(255,71,87,0.7);
+        }
+
+        .popup-close:active {
+            transform: rotate(90deg) scale(0.95);
+        }
+
+        .popup-product-title {
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 5px;
+            font-weight: 700;
+            text-align: center;
+            padding: 60px 20px 0 20px;
+            animation: titleFadeIn 0.5s ease 0.2s backwards;
+        }
+
+        .popup-product-subtitle {
+            font-size: 1em;
+            color: #888;
+            margin-bottom: 15px;
+            text-align: center;
+            padding: 0 20px;
+            animation: titleFadeIn 0.5s ease 0.25s backwards;
+        }
+
+        @keyframes titleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -293,73 +461,60 @@
             }
         }
 
-        .popup-close {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 71, 87, 0.9);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 22px;
-            cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 4px 20px rgba(255,71,87,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .popup-close:active {
-            transform: scale(0.9);
-        }
-
-        .popup-product-title {
-            font-size: 1.4em;
-            color: var(--tg-theme-text-color, #fff);
-            margin-bottom: 5px;
-            font-weight: 700;
-            text-align: center;
-            padding: 50px 15px 0 15px;
-        }
-
-        .popup-product-subtitle {
-            font-size: 0.95em;
-            color: #888;
-            margin-bottom: 15px;
-            text-align: center;
-            padding: 0 15px;
-        }
-
         .popup-media-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            padding: 0 15px 15px 15px;
+            padding: 0 20px 15px 20px;
+            animation: mediaFadeIn 0.5s ease 0.3s backwards;
+        }
+
+        @keyframes mediaFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .media-item {
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6),
+                        0 4px 12px rgba(29, 77, 46, 0.2);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 1px solid #2a2a2a;
+        }
+
+        .media-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7),
+                        0 6px 18px rgba(29, 77, 46, 0.3);
+            border-color: #2d5f3f;
         }
 
         .popup-media-section img,
         .popup-media-section video {
             width: 100%;
-            height: 130px;
+            height: 140px;
             object-fit: cover;
             display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .media-item:hover img,
+        .media-item:hover video {
+            transform: scale(1.05);
         }
 
         .media-item img {
-            cursor: pointer;
+            cursor: zoom-in;
         }
 
+        /* Lightbox pour image agrandie */
         .lightbox {
             display: none;
             position: fixed;
@@ -371,6 +526,7 @@
             z-index: 3000;
             justify-content: center;
             align-items: center;
+            animation: overlayFadeIn 0.3s ease;
             padding: 20px;
         }
 
@@ -383,33 +539,65 @@
             max-height: 95%;
             object-fit: contain;
             border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+            animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .lightbox-close {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 60px;
+            right: 20px;
             background: rgba(255, 71, 87, 0.9);
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            font-size: 24px;
+            font-size: 26px;
             cursor: pointer;
             z-index: 10;
+            box-shadow: 0 4px 20px rgba(255,71,87,0.5);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
         }
 
+        .lightbox-close:hover {
+            background: #ff4757;
+            transform: rotate(90deg) scale(1.1);
+        }
+
         .lightbox-close:active {
-            transform: scale(0.9);
+            transform: rotate(90deg) scale(0.95);
         }
 
         .popup-info-section {
-            padding: 0 15px 20px 15px;
+            padding: 0 20px 20px 20px;
+            animation: infoFadeIn 0.5s ease 0.4s backwards;
+        }
+
+        @keyframes infoFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .pricing-grid {
@@ -422,42 +610,80 @@
         .pricing-card {
             background: linear-gradient(135deg, #2d5f3f 0%, #1a4d2e 100%);
             color: white;
-            padding: 10px 8px;
+            padding: 12px 8px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(29, 77, 46, 0.4);
+            box-shadow: 0 4px 15px rgba(29, 77, 46, 0.4),
+                        0 2px 8px rgba(0,0,0,0.3);
             text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 1px solid rgba(45, 95, 63, 0.3);
-            min-height: 58px;
+            animation: pricingCardIn 0.5s ease backwards;
+            min-height: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
+        @keyframes pricingCardIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .pricing-card:nth-child(1) { animation-delay: 0.5s; }
+        .pricing-card:nth-child(2) { animation-delay: 0.55s; }
+        .pricing-card:nth-child(3) { animation-delay: 0.6s; }
+        .pricing-card:nth-child(4) { animation-delay: 0.65s; }
+        .pricing-card:nth-child(5) { animation-delay: 0.7s; }
+        .pricing-card:nth-child(6) { animation-delay: 0.75s; }
+
+        .pricing-card:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(29, 77, 46, 0.6),
+                        0 4px 12px rgba(0,0,0,0.4);
+            border-color: rgba(45, 95, 63, 0.6);
+        }
+
         .pricing-card:active {
-            transform: scale(0.95);
+            transform: translateY(-2px) scale(1.02);
         }
 
         .pricing-amount {
-            font-size: 1.15em;
+            font-size: 1.2em;
             font-weight: bold;
             margin-bottom: 3px;
+            word-break: break-word;
         }
 
         .pricing-weight {
-            font-size: 0.8em;
+            font-size: 0.85em;
             opacity: 0.9;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .popup-description {
-            color: var(--tg-theme-text-color, #ccc);
-            line-height: 1.5;
-            font-size: 0.9em;
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 0.95em;
             padding: 12px;
-            background: rgba(26, 26, 26, 0.8);
+            background: #1a1a1a;
             border-radius: 12px;
             border-left: 3px solid #2d5f3f;
             margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .popup-description:hover {
+            border-left-width: 5px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            background: #1d1d1d;
         }
 
         .booking-button {
@@ -469,28 +695,172 @@
             color: white;
             border: none;
             padding: 14px 25px;
-            border-radius: 12px;
+            border-radius: 50px;
             font-size: 1em;
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 6px 25px rgba(29, 77, 46, 0.5);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 6px 25px rgba(29, 77, 46, 0.5),
+                        0 3px 12px rgba(0,0,0,0.3);
             width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .booking-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 35px rgba(29, 77, 46, 0.7),
+                        0 5px 18px rgba(0,0,0,0.4);
+        }
+
+        .booking-button:hover::before {
+            width: 400px;
+            height: 400px;
         }
 
         .booking-button:active {
-            transform: scale(0.95);
+            transform: translateY(-2px) scale(1);
+            transition: all 0.1s ease;
         }
 
         .message-icon {
-            font-size: 1.2em;
+            font-size: 1.3em;
+            animation: iconBounce 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Safe area pour iPhone */
-        @supports (padding: max(0px)) {
-            body {
-                padding-top: max(0px, env(safe-area-inset-top));
-                padding-bottom: max(0px, env(safe-area-inset-bottom));
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @media (min-width: 769px) {
+            .header-section {
+                padding: 40px 20px;
+            }
+
+            .header-content {
+                gap: 20px;
+                padding: 20px 40px;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .main-title {
+                font-size: 2em;
+            }
+
+            .info-banner {
+                margin: 0 30px 30px 30px;
+                padding: 25px 30px;
+            }
+
+            .info-banner-title {
+                font-size: 1.3em;
+            }
+
+            .info-banner-content {
+                font-size: 1em;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                padding: 30px;
+            }
+
+            .product-frame:hover {
+                transform: translateY(-10px) scale(1.05);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.9),
+                            0 10px 25px rgba(29, 77, 46, 0.5);
+            }
+
+            .frame-image {
+                height: 250px;
+            }
+
+            .frame-content {
+                padding: 20px;
+            }
+
+            .frame-title {
+                font-size: 1.4em;
+            }
+
+            .frame-subtitle {
+                font-size: 1em;
+            }
+
+            .popup-container {
+                border-radius: 25px;
+                max-width: 900px;
+                margin: 30px;
+                min-height: auto;
+            }
+
+            .popup-close {
+                position: absolute;
+            }
+
+            .popup-product-title {
+                font-size: 2.5em;
+                padding: 30px 20px 20px 20px;
+            }
+
+            .popup-media-section {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                padding: 0 30px 30px 30px;
+            }
+
+            .popup-media-section img,
+            .popup-media-section video {
+                height: 350px;
+            }
+
+            .popup-info-section {
+                padding: 0 35px 40px 35px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+
+            .pricing-card {
+                padding: 15px;
+            }
+
+            .pricing-amount {
+                font-size: 1.3em;
+            }
+
+            .booking-button {
+                width: auto;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     </style>
@@ -509,9 +879,9 @@
             <div class="info-banner-content">
                 <p><strong>Horaires :</strong> Tout les jours de 12h à 00h</p>
                 <p><strong>Minimum 40€ de commande</strong></p>
-                <p><strong>Uniquement en livraison</strong> (pas de frais)</p>
+				<p><strong>Uniquement en livraison</strong> (pas de frais)</p>
                 <p><strong>Secteur :</strong> Tours et villes alentours</p>
-                <p><strong></strong> Plus loin sur demande</p>
+				<p><strong></strong> Plus loin sur demande</p>
             </div>
         </div>
         
@@ -521,7 +891,7 @@
                 <button class="filter-btn active" data-filter="all">Tous</button>
                 <button class="filter-btn" data-filter="hash">Hash</button>
                 <button class="filter-btn" data-filter="weed">Weed</button>
-                <button class="filter-btn" data-filter="avenir">A venir...</button>
+                <button class="filter-btn" data-filter="avenir">A venir...</button>				
             </div>
         </div>
         
@@ -540,7 +910,7 @@
                     <img id="popupImage" src="" alt="">
                 </div>
                 <div class="media-item">
-                    <video id="popupVideo" src="" controls playsinline></video>
+                    <video id="popupVideo" src="" controls></video>
                 </div>
             </div>
             
@@ -550,34 +920,24 @@
                 <div class="popup-description" id="popupDescription"></div>
                 
                 <a href="#" class="booking-button" id="bookingButton">
-                    <span class="message-icon">📲</span>
+                    <span class="message-icon">📲​</span>
                     <span>Passer commande sur signal</span>
                 </a>
             </div>
         </div>
     </div>
 
+    <!-- Lightbox pour agrandir l'image -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" id="lightboxClose">×</button>
         <img class="lightbox-image" id="lightboxImage" src="" alt="">
     </div>
 
     <script>
-        // Initialiser Telegram WebApp
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.enableClosingConfirmation();
-
-        // Adapter les couleurs au thème Telegram
-        if (tg.themeParams) {
-            document.body.style.backgroundColor = tg.themeParams.bg_color || '#0a0a0a';
-            document.body.style.color = tg.themeParams.text_color || '#ffffff';
-        }
-
         const products = [
             {
-                title: "Jaune Mousseux 🧽",
-                subtitle: "Il Padrino 🇮🇹",
+                title: "Jaune Mousseux ​🧽​",
+                subtitle: "Il Padrino 🇮🇹​",
                 image: "images/ilpadrino.png",
                 video: "videos/jauneilpadrino.mp4",
                 pricing: "20€/3.6G - 110€/25G - 40€/7.2G - 180€/50G - 50€/10G - 320€/100G",
@@ -586,8 +946,8 @@
                 category: "hash"
             },
             {
-                title: "Dry Sift 🍫",
-                subtitle: "Mimosa 🍊",
+                title: "Dry Sift 🍫​",
+                subtitle: "Mimosa 🍊​",
                 image: "images/produit2.jpg",
                 video: "videos/produit2.mp4",
                 pricing: "20€/2G - 70€/10G - 40€/5G - + en privé",
@@ -596,8 +956,8 @@
                 category: "hash"
             },
             {
-                title: "Hollandaise 🇳🇱",
-                subtitle: "Amnesia Lemon 🍋",
+                title: "Hollandaise 🇳🇱​",
+                subtitle: "Amnesia Lemon 🍋​",
                 image: "images/produit3.jpg",
                 video: "videos/produit3.mp4",
                 pricing: "20€/2G - 70€/10G - 40€/5G - + en privé",
@@ -606,8 +966,8 @@
                 category: "weed"
             },
             {
-                title: "CaliSpain 🇺🇸🇪🇸",
-                subtitle: "Rainbow Truflle 🌈",
+                title: "CaliSpain ​🇺🇸🇪🇸​",
+                subtitle: "Rainbow Truflle ​🌈​",
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
                 pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
@@ -616,8 +976,8 @@
                 category: "weed"
             },
             {
-                title: "CaliSpain 🇺🇸🇪🇸",
-                subtitle: "Blue Cookies 🍪",
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Blue Cookies 🍪​",
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
                 pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
@@ -626,8 +986,8 @@
                 category: "weed"
             },
             {
-                title: "CaliSpain 🇺🇸🇪🇸",
-                subtitle: "Vanilla Late 🍦",
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Vanilla Late ​🍦​​",
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
                 pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
@@ -636,8 +996,8 @@
                 category: "weed"
             },
             {
-                title: "CaliSpain 🇺🇸🇪🇸",
-                subtitle: "Tropicanna Cherry 🍒",
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Tropicanna Cherry 🍒​​​",
                 image: "images/produit4.jpg",
                 video: "videos/produit4.mp4",
                 pricing: "20€/1.7G - 90€/10G - 40€/4G - + en privé",
@@ -662,13 +1022,6 @@
         const lightboxImage = document.getElementById('lightboxImage');
         const lightboxClose = document.getElementById('lightboxClose');
 
-        // Haptic feedback pour Telegram
-        function hapticFeedback(type = 'light') {
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred(type);
-            }
-        }
-
         function renderProducts(filter = 'all') {
             productsGrid.innerHTML = '';
             
@@ -687,17 +1040,13 @@
                     </div>
                 `;
                 
-                frame.addEventListener('click', () => {
-                    hapticFeedback('medium');
-                    openPopup(product);
-                });
+                frame.addEventListener('click', () => openPopup(product));
                 productsGrid.appendChild(frame);
             });
         }
 
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                hapticFeedback('light');
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 renderProducts(btn.dataset.filter);
@@ -713,30 +1062,34 @@
             popupDescription.textContent = product.description;
             bookingButton.href = product.bookingLink;
             
-            popupImage.onclick = () => {
-                hapticFeedback('medium');
-                openLightbox(product.image);
-            };
+            // Ajouter l'événement de clic sur l'image pour ouvrir le lightbox
+            popupImage.onclick = () => openLightbox(product.image);
             
+            // Activer le mode plein écran et lecture automatique quand on clique sur play
             popupVideo.onclick = function() {
                 if (this.paused) {
-                    hapticFeedback('light');
                     this.play();
+                    // Tenter le plein écran si possible
+                    if (this.requestFullscreen) {
+                        this.requestFullscreen();
+                    } else if (this.webkitRequestFullscreen) {
+                        this.webkitRequestFullscreen();
+                    } else if (this.mozRequestFullScreen) {
+                        this.mozRequestFullScreen();
+                    } else if (this.msRequestFullscreen) {
+                        this.msRequestFullscreen();
+                    }
                 }
             };
             
-            bookingButton.onclick = (e) => {
-                e.preventDefault();
-                hapticFeedback('medium');
-                tg.openLink(product.bookingLink);
-            };
-            
+            // Créer les cartes de tarifs
             pricingGrid.innerHTML = '';
             const prices = product.pricing.split(' - ');
             prices.forEach(price => {
                 const card = document.createElement('div');
                 card.className = 'pricing-card';
                 
+                // Séparer le prix et le poids
                 const parts = price.split('/');
                 if (parts.length === 2) {
                     card.innerHTML = `
@@ -761,33 +1114,38 @@
         }
 
         function closeLightbox() {
-            hapticFeedback('light');
             lightbox.classList.remove('active');
         }
 
         lightboxClose.addEventListener('click', closeLightbox);
+
         lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
         });
 
         function closePopup() {
-            hapticFeedback('light');
             productPopup.classList.remove('active');
             document.body.style.overflow = 'auto';
             popupVideo.pause();
         }
 
         popupClose.addEventListener('click', closePopup);
+        
         productPopup.addEventListener('click', (e) => {
-            if (e.target === productPopup) closePopup();
+            if (e.target === productPopup) {
+                closePopup();
+            }
         });
 
-        // Désactiver ESC car géré par Telegram
-        tg.BackButton.onClick(() => {
-            if (lightbox.classList.contains('active')) {
-                closeLightbox();
-            } else if (productPopup.classList.contains('active')) {
-                closePopup();
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (lightbox.classList.contains('active')) {
+                    closeLightbox();
+                } else {
+                    closePopup();
+                }
             }
         });
 
