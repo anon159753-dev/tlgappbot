@@ -102,8 +102,8 @@
 
     .info-banner {
       background: linear-gradient(135deg, #1a4d2e 0%, #236339 25%, #2d5f3f 50%, #2d5f3f 75%, #3a7850 100%);
-      padding: 20px 15px;
-      margin: 0 15px 20px 15px;
+      padding: 5px 15px;
+      margin: 0px 25px 5px 25px;
       border-radius: 16px;
       border: 1px solid rgba(45, 95, 63, 0.3);
       box-shadow: 0 6px 20px rgba(29, 77, 46, 0.4),
@@ -676,21 +676,21 @@
       transition: width 0.6s ease, height 0.6s ease;
     }
 
-	.booking-icon.brand {
-	width: 20px;
-	height: 20px;
-	display: block;
-	filter: drop-shadow(0 4px 12px rgba(29, 77, 46, 0.45));
-	transition: transform 0.35s ease, filter 0.35s ease;
-	animation: navIconFloat 2.2s ease-in-out infinite;
-	}
+    .booking-icon.brand {
+      width: 20px;
+      height: 20px;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(29, 77, 46, 0.45));
+      transition: transform 0.35s ease, filter 0.35s ease;
+      animation: navIconFloat 2.2s ease-in-out infinite;
+    }
 
-	.booking-button:hover .booking-icon.brand {
-		transform: translateY(-3px) scale(1.08);
-		filter:
-			drop-shadow(0 0 10px rgba(58, 134, 85, 0.9))
-			drop-shadow(0 6px 18px rgba(29, 77, 46, 0.7));
-	}	
+    .booking-button:hover .booking-icon.brand {
+      transform: translateY(-3px) scale(1.08);
+      filter:
+        drop-shadow(0 0 10px rgba(58, 134, 85, 0.9))
+        drop-shadow(0 6px 18px rgba(29, 77, 46, 0.7));
+    } 
 
     .booking-button:hover::before { width: 400px; height: 400px; }
     .booking-button:active { transform: translateY(-2px) scale(1); transition: all 0.1s ease; }
@@ -915,7 +915,6 @@
 		font-size: 0.68em;
 	}
 
-
     /* ===== ADDED: Hide navbar when popup/lightbox is open ===== */
     .bottom-nav.is-hidden {
       opacity: 0;
@@ -923,8 +922,15 @@
       pointer-events: none;
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
+
     .bottom-nav {
       transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    /* ===== FIX: Disable ALL navbar clicks when popup/lightbox is open ===== */
+    body.popup-open #bottomNav,
+    body.popup-open #bottomNav * {
+      pointer-events: none !important;
     }
 
     @media (min-width: 769px) {
@@ -963,8 +969,8 @@
       <div class="info-banner-title"></div>
       <div class="info-banner-content">
 		<p><strong>BIENVENUE CHEZ ROYAL SMOKE COFFEESHOP</strong></p>
-		<p><strong></strong>Les meilleurs produits livrés à domicile</p>
-        <p><strong></strong>Profitez de cette Mini-App exclusive sur Tours !</p>
+		<p><strong></strong>Les meilleurs produits du monde livrés à domicile</p>
+        <p><strong></strong>Bonne visite sur cette Mini-App exclusive sur Tours !</p>
       </div>
     </div>
 
@@ -1006,29 +1012,27 @@
 
         <div class="booking-buttons-container">
           <a href="#" class="booking-button" id="bookingButton">
-            <span class="message-icon">
-              <svg class="booking-icon brand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 122.31" aria-hidden="true">
-				<path fill="#4c83f2" fill-rule="evenodd" d="M27.75,0H95.13a27.83,27.83,0,0,1,27.75,27.75V94.57a27.83,27.83,0,0,1-27.75,27.74H27.75A27.83,27.83,0,0,1,0,94.57V27.75A27.83,27.83,0,0,1,27.75,0Z"/>
-					<path fill="#fff" d="M61.44,25.39A35.76,35.76,0,0,0,31.18,80.18L27.74,94.86l14.67-3.44a35.77,35.77,0,1,0,19-66ZM41,95.47,35.1,96.85l.94,4,4.35-1a43.36,43.36,0,0,0,10.46,4l1-4A40,40,0,0,1,41,95.45l0,0ZM21.76,86.53l4,.93,1.37-5.91a39.6,39.6,0,0,1-4.43-10.82l-4,1a44.23,44.23,0,0,0,4.06,10.46l-1,4.35Zm9.68,11.15-8.52,2,2-8.52-4-.93-2,8.51a4.12,4.12,0,0,0,3.08,5,4,4,0,0,0,1.88,0l8.52-2-.94-4.06Zm24-76a40.56,40.56,0,0,1,12,0L68,17.63a44.25,44.25,0,0,0-13.2,0l.63,4.07ZM99.14,38.4l-3.53,2.12a39.89,39.89,0,0,1,4.57,11l4-1a43.75,43.75,0,0,0-5-12.18Zm-69.81-.91A40.29,40.29,0,0,1,37.78,29l-2.47-3.32A43.62,43.62,0,0,0,26,35l3.32,2.47ZM85.1,29a40.11,40.11,0,0,1,8.46,8.45L96.88,35a43.62,43.62,0,0,0-9.3-9.3L85.1,29Zm8.46,55.78a40.11,40.11,0,0,1-8.46,8.45l2.45,3.32a44,44,0,0,0,9.33-9.3l-3.32-2.47ZM67.42,100.6a39.89,39.89,0,0,1-12,0l-.62,4.09a44.18,44.18,0,0,0,13.19,0l-.62-4.09Zm36.76-28.88-4-1A40,40,0,0,1,95.6,81.8l3.53,2.12a43.72,43.72,0,0,0,5.05-12.2Zm-2.84-10.57a39.93,39.93,0,0,1-.45,6l4.07.62a44.18,44.18,0,0,0,0-13.19l-4.07.62a39.8,39.8,0,0,1,.45,6ZM84.2,98.85l-2.12-3.53a39.89,39.89,0,0,1-11,4.57l1,4a43.75,43.75,0,0,0,12.18-5ZM21.55,61.15a41.15,41.15,0,0,1,.44-6l-4.07-.62a44.18,44.18,0,0,0,0,13.19L22,67.13a41.28,41.28,0,0,1-.44-6Zm2.2-22.75A43.83,43.83,0,0,0,18.7,50.59l4,1a40.08,40.08,0,0,1,4.57-11.06L23.75,38.4ZM72,18.41l-1,4A40.08,40.08,0,0,1,82.08,27l2.13-3.53A44,44,0,0,0,72,18.41Zm-21.13,0,1,4A40.08,40.08,0,0,0,40.8,27l-2.12-3.53a44,44,0,0,1,12.2-5.05Z"/>
-			</svg>
-            </span>
-            <span>Contact Signal</span>
+           <span class="message-icon">
+			  <img
+				src="images/signal.png"
+				alt=""
+				class="booking-icon brand"
+				aria-hidden="true"
+			  />
+		   </span>
+            <span>Commander sur Signal</span>
           </a>
 
           <a href="#" class="booking-button" id="bookingButton2">
             <span class="message-icon">
-				<svg class="booking-icon brand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
-					<defs>
-						<linearGradient id="tgGradientBooking" gradientUnits="userSpaceOnUse" x1="256" y1="3.84" x2="256" y2="512">
-							<stop offset="0" stop-color="#2AABEE"/>
-							<stop offset="1" stop-color="#229ED9"/>
-						</linearGradient>
-					</defs>
-					<circle fill="url(#tgGradientBooking)" cx="256" cy="256" r="256"/>
-					<path fill="#fff" d="M115.88 253.3c74.63-32.52 124.39-53.95 149.29-64.31 71.1-29.57 85.87-34.71 95.5-34.88 2.12-.03 6.85.49 9.92 2.98 2.59 2.1 3.3 4.94 3.64 6.93.34 2 .77 6.53.43 10.08-3.85 40.48-20.52 138.71-29 184.05-3.59 19.19-10.66 25.62-17.5 26.25-14.86 1.37-26.15-9.83-40.55-19.27-22.53-14.76-35.26-23.96-57.13-38.37-25.28-16.66-8.89-25.81 5.51-40.77 3.77-3.92 69.27-63.5 70.54-68.9.16-.68.31-3.2-1.19-4.53s-3.71-.87-5.3-.51c-2.26.51-38.25 24.3-107.98 71.37-10.22 7.02-19.48 10.43-27.77 10.26-9.14-.2-26.72-5.17-39.79-9.42-16.03-5.21-28.77-7.97-27.66-16.82.57-4.61 6.92-9.32 19.04-14.14z"/>
-				</svg>
-            </span>
-            <span>Contact Telegram</span>
+			  <img
+				src="images/telegram.png"
+				alt=""
+				class="booking-icon brand"
+				aria-hidden="true"
+			  />
+			</span>
+            <span>Commander sur Telegram</span>
           </a>
         </div>
       </div>
@@ -1183,6 +1187,9 @@
 
       /* ADDED: hide bottom nav */
       setNavbarHidden(true);
+
+      /* FIX: disable navbar clicks while popup is open */
+      document.body.classList.add('popup-open');
     }
 
     function openLightbox(imageSrc) {
@@ -1191,6 +1198,9 @@
 
       /* ADDED: hide bottom nav */
       setNavbarHidden(true);
+
+      /* FIX: disable navbar clicks while lightbox is open */
+      document.body.classList.add('popup-open');
     }
 
     function closeLightbox() {
@@ -1199,6 +1209,9 @@
       /* ADDED: show bottom nav only if popup is NOT open */
       const popupOpen = productPopup.classList.contains('active');
       setNavbarHidden(popupOpen);
+
+      /* FIX: keep navbar disabled only if popup remains open */
+      if (!popupOpen) document.body.classList.remove('popup-open');
     }
 
     lightboxClose.addEventListener('click', closeLightbox);
@@ -1215,6 +1228,9 @@
       /* ADDED: if lightbox not open, show nav */
       const lightboxOpen = lightbox.classList.contains('active');
       setNavbarHidden(lightboxOpen);
+
+      /* FIX: keep navbar disabled only if lightbox remains open */
+      if (!lightboxOpen) document.body.classList.remove('popup-open');
     }
 
     popupClose.addEventListener('click', closePopup);
