@@ -22,9 +22,7 @@
       position: relative;
       overflow-x: hidden;
       padding-top: 0;
-
-      /* Place pour la nav en bas */
-      padding-bottom: 95px;
+      padding-bottom: 95px; /* Place pour la nav en bas */
     }
 
     body::before {
@@ -180,7 +178,6 @@
       align-items: center;
       justify-content: center;
       line-height: 1.2;
-
       animation: filterSlideIn 0.5s ease backwards;
     }
 
@@ -467,7 +464,7 @@
 
     .media-item {
       border-radius: 12px;
-      position: relative;
+      position: relative; /* required for badge positioning */
       overflow: hidden;
       box-shadow: 0 8px 25px rgba(0,0,0,0.6),
                   0 4px 12px rgba(29, 77, 46, 0.2);
@@ -511,6 +508,48 @@
     .media-item:hover video { transform: scale(1.05); }
 
     .media-item img { cursor: zoom-in; }
+
+    /* === ADDED: Permanent expand badge (mobile only) === */
+    .expand-badge {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: none;              /* shown on mobile via media query */
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      user-select: none;
+      pointer-events: none;       /* badge doesn't block taps */
+      color: rgba(255,255,255,0.88);
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 1;
+
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow:
+        0 10px 24px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.10);
+
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 768px) {
+      .expand-badge { display: inline-flex; }
+    }
+
+    @keyframes badgeIntro {
+      0%   { opacity: 0; transform: translateY(6px) scale(0.92); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .expand-badge.intro {
+      animation: badgeIntro 0s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
 
     /* Lightbox */
     .lightbox {
@@ -636,8 +675,8 @@
     }
 
     .booking-buttons-container {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
 
@@ -649,9 +688,9 @@
       background: linear-gradient(135deg, #3a8655 0%, #2f6d47 25%, #2d5f3f 60%, #236339 85%, #1a4d2e 100%);
       color: white;
       border: none;
-      padding: 14px 25px;
+      padding: 14px 18px;
       border-radius: 50px;
-      font-size: 1em;
+      font-size: 0.95em;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
@@ -676,6 +715,19 @@
       transition: width 0.6s ease, height 0.6s ease;
     }
 
+    .booking-button:hover::before { width: 400px; height: 400px; }
+    .booking-button:active { transform: translateY(-2px) scale(1); transition: all 0.1s ease; }
+
+    .booking-buttons-container .message-icon {
+      font-size: 0;
+      animation: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      position: relative;
+    }
+
     .booking-icon.brand {
       width: 20px;
       height: 20px;
@@ -685,66 +737,16 @@
       animation: navIconFloat 2.2s ease-in-out infinite;
     }
 
+    @keyframes navIconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
     .booking-button:hover .booking-icon.brand {
       transform: translateY(-3px) scale(1.08);
       filter:
         drop-shadow(0 0 10px rgba(58, 134, 85, 0.9))
         drop-shadow(0 6px 18px rgba(29, 77, 46, 0.7));
-    } 
-
-    .booking-button:hover::before { width: 400px; height: 400px; }
-    .booking-button:active { transform: translateY(-2px) scale(1); transition: all 0.1s ease; }
-
-    /* ===== Booking buttons icons (match navbar style) ===== */
-    .booking-buttons-container .message-icon {
-      font-size: 0;       /* remove emoji sizing */
-      animation: none;    /* disable emoji bounce */
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-      position: relative;
-    }
-
-    .booking-icon {
-      width: 20px;
-      height: 20px;
-      display: block;
-      filter: drop-shadow(0 4px 12px rgba(29, 77, 46, 0.45));
-      transition: transform 0.35s ease, filter 0.35s ease;
-      animation: navIconFloat 2.2s ease-in-out infinite;
-    }
-
-    /* Premium hover (halo + icon glow) */
-    .booking-button::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 120%, rgba(58, 134, 85, 0.35), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      pointer-events: none;
-    }
-
-    .booking-button:hover::after { opacity: 1; }
-
-    .booking-button:hover .booking-icon {
-      transform: translateY(-3px) scale(1.08);
-      filter: drop-shadow(0 0 10px rgba(58, 134, 85, 0.9))
-              drop-shadow(0 6px 18px rgba(29, 77, 46, 0.7));
-    }
-
-    .message-icon {
-      font-size: 1.3em;
-      animation: iconBounce 2s ease-in-out infinite;
-      position: relative;
-      z-index: 1;
-      transition: transform 0.3s ease;
-    }
-
-    @keyframes iconBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
     }
 
     /* ===== Bottom Navigation ===== */
@@ -754,16 +756,17 @@
       right: 0;
       bottom: 0;
       z-index: 2500;
-      padding: 10px 12px 12px 12px;
+      padding: 6px 50px 20px 50px; /* navbar plus compacte */
       pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .bottom-nav-frame {
       pointer-events: auto;
-      max-width: 520px;
+      max-width: 480px;
       margin: 0 auto;
       background: linear-gradient(145deg, #1e1e1e 0%, #1a1a1a 35%, #151515 75%, #121212 100%);
-      border-radius: 18px;
+      border-radius: 14px;
       border: 2px solid rgba(45, 95, 63, 0.85);
       box-shadow: 0 10px 60px rgba(29, 77, 46, 0.35),
                   0 5px 18px rgba(0,0,0,0.65),
@@ -791,8 +794,8 @@
     .bottom-nav-items {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      padding: 10px;
+      gap: 6px;
+      padding: 6px;
       position: relative;
       z-index: 1;
     }
@@ -803,9 +806,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      padding: 10px 8px;
-      border-radius: 14px;
+      gap: 4px;
+      padding: 7px 6px;
+      border-radius: 10px;
       border: 1px solid #2a2a2a;
       background: linear-gradient(145deg, #242424 0%, #222 50%, #1a1a1a 100%);
       color: #aaa;
@@ -853,81 +856,25 @@
     }
 
     .bottom-nav-icon {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       display: block;
       filter: drop-shadow(0 4px 12px rgba(29, 77, 46, 0.45));
       animation: navIconFloat 2.2s ease-in-out infinite;
     }
 
-    .bottom-nav-item.active .bottom-nav-icon {
-      filter: drop-shadow(0 6px 18px rgba(58, 134, 85, 0.75));
-    }
-
-    @keyframes navIconFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-    }
-
     .bottom-nav-label {
-      font-size: 0.78em;
+      font-size: 0.68em;
       text-transform: uppercase;
       opacity: 0.95;
     }
 
-    .bottom-nav-item.pop { animation: navPop 0.28s ease; }
-    @keyframes navPop {
-      0% { transform: translateY(-2px) scale(1.02); }
-      50% { transform: translateY(-4px) scale(1.05); }
-      100% { transform: translateY(-2px) scale(1.02); }
-    }
-	
-	/* Navbar plus compacte */
-	.bottom-nav {
-		padding: 6px 50px 20px 50px;
-	}
-
-	.bottom-nav-frame {
-		max-width: 480px;
-		border-radius: 14px;
-	}
-
-	/* Réduit la hauteur globale */
-	.bottom-nav-items {
-		padding: 6px;
-		gap: 6px;
-	}
-
-	/* Boutons plus petits */
-	.bottom-nav-item {
-		padding: 7px 6px;
-		gap: 4px;
-		border-radius: 10px;
-	}
-
-	/* Icônes & texte plus compacts */
-	.bottom-nav-icon {
-		width: 18px;
-		height: 18px;
-	}
-
-	.bottom-nav-label {
-		font-size: 0.68em;
-	}
-
-    /* ===== ADDED: Hide navbar when popup/lightbox is open ===== */
     .bottom-nav.is-hidden {
       opacity: 0;
       transform: translateY(18px);
       pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
-    .bottom-nav {
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    /* ===== FIX: Disable ALL navbar clicks when popup/lightbox is open ===== */
     body.popup-open #bottomNav,
     body.popup-open #bottomNav * {
       pointer-events: none !important;
@@ -961,16 +908,16 @@
     <div class="header-section">
       <div class="header-content">
         <img src="logo.png" alt="Royal Smoke Logo" class="logo" />
-        <h1 class="main-title">Royal Smoke</h1>
+        <h1 class="main-title">ROYAL SMOKE</h1>
       </div>
     </div>
 
     <div class="info-banner">
       <div class="info-banner-title"></div>
       <div class="info-banner-content">
-	    	<p><strong>BIENVENUE CHEZ ROYAL SMOKE</strong></p>
-	    	<p><strong></strong>Les meilleurs produits du monde livrés à domicile</p>
-        <p><strong></strong>Bonne visite sur cette App exclusive sur Tours !</p>
+        <p><strong>BIENVENUE CHEZ ROYAL SMOKE COFFEESHOP</strong></p>
+        <p><i>Des produits uniques et introuvable sur Tours</i></p>
+        <p><i>Bonne visite sur cette Mini-App exclusive</i></p>
       </div>
     </div>
 
@@ -997,8 +944,9 @@
       </div>
 
       <div class="popup-media-section">
-        <div class="media-item">
+        <div class="media-item" id="popupImageWrap">
           <img id="popupImage" src="" alt="" />
+          <div class="expand-badge" id="expandBadge" aria-hidden="true">⤢</div>
         </div>
         <div class="media-item">
           <video id="popupVideo" src="" controls></video>
@@ -1012,27 +960,17 @@
 
         <div class="booking-buttons-container">
           <a href="#" class="booking-button" id="bookingButton">
-           <span class="message-icon">
-			  <img
-				src="images/signal.png"
-				alt=""
-				class="booking-icon brand"
-				aria-hidden="true"
-			  />
-		   </span>
-            <span>Commander sur Signal</span>
+            <span class="message-icon">
+              <img src="images/signal.png" alt="" class="booking-icon brand" aria-hidden="true" />
+            </span>
+            <span><i>Signal</i></span>
           </a>
 
           <a href="#" class="booking-button" id="bookingButton2">
             <span class="message-icon">
-			  <img
-				src="images/telegram.png"
-				alt=""
-				class="booking-icon brand"
-				aria-hidden="true"
-			  />
-			</span>
-            <span>Commander sur Telegram</span>
+              <img src="images/telegram.png" alt="" class="booking-icon brand" aria-hidden="true" />
+            </span>
+            <span><i>Telegram</i></span>
           </a>
         </div>
       </div>
@@ -1065,31 +1003,89 @@
           <span class="bottom-nav-label">Infos</span>
         </a>
 
-        <a class="bottom-nav-item" href="liens.html" data-page="liens" aria-label="Liens">
-          <svg class="bottom-nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M10 13a5 5 0 0 1 0-7l1.2-1.2a5 5 0 0 1 7 7L17 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M14 11a5 5 0 0 1 0 7L12.8 19.2a5 5 0 0 1-7-7L7 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-          <span class="bottom-nav-label">Liens</span>
+        <a class="bottom-nav-item" href="liens.html" data-page="liens" aria-label="Contact">
+		  <svg class="bottom-nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+		    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
+		    <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"/>
+		  </svg>
+          <span class="bottom-nav-label">Contacts</span>
         </a>
       </div>
     </div>
   </nav>
 
   <script>
-    const products = [
-      {
-        title: "Jaune ​🧽🇲🇦​",
-        subtitle: "Il Padrino 🇮🇹​",
-        image: "images/ilpadrino.png",
-        video: "videos/jauneilpadrino.mp4",
-        pricing: "20€/4G - 110€/25G - 40€/8G - 180€/50G - 50€/10G - 320€/100G",
-        description: "Jaune mousseux premium, une bonne odeur et un bon high, vraie qualité la mousse ++",
-        bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
-        bookingLink2: "https://t.me/royals37",
-        category: "hash"
-      }
-    ];
+        const products = [
+            {
+				title: "Jaune ​🧽🇲🇦​",
+				subtitle: "Il Padrino 🇮🇹​",
+				image: "images/ilpadrino.png",
+				video: "videos/jauneilpadrino.mp4",
+				pricing: "20€/4G - 40€/8G - 50€/10G - 110€/25G - 180€/50G - 320€/100G",
+				description: "Jaune mousseux premium, une bonne odeur et un bon high, vraie qualité la mousse ++",
+				bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+				bookingLink2: "https://t.me/royals37",
+				category: "hash"
+			},
+            {
+                title: "Dry Sift 🇲🇦🍫​",
+                subtitle: "Mimosa 🍊​",
+                image: "images/produit2.jpg",
+                video: "videos/produit2.mp4",
+                pricing: "20€/2G - 50€/5,5G - 80€/10G - 150€/20G",
+                description: "Dry Sift 73u premium, top qualité prix !",
+                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+				bookingLink2: "https://t.me/royals37",
+                category: "hash"
+            },
+            {
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Rainbow Truflle 🌈​",
+                image: "images/produit3.jpg",
+                video: "videos/produit3.mp4",
+                pricing: "20€/1.7G - 40€/4G - 90€/10G - 160€/20G",
+                description: "Une weed classique mais magnifique, top rapport qualité prix !",
+                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+				bookingLink2: "https://t.me/royals37",
+                category: "weed"
+            },
+            {
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Blue Cookies ​​🍪​",
+                image: "images/produit4.jpg",
+                video: "videos/produit4.mp4",
+                pricing: "20€/1.7G - 40€/4G - 90€/10G - 160€/20G",
+                description: "Une weed classique mais magnifique, top rapport qualité prix !",
+                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+				bookingLink2: "https://t.me/royals37",
+                category: "weed"
+            },
+            {
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Vanilla Late ​🍦​",
+                image: "images/produit4.jpg",
+                video: "videos/produit4.mp4",
+                pricing: "20€/1.7G - 40€/4G - 90€/10G - 160€/20G",
+                description: "Une weed classique mais magnifique, top rapport qualité prix !",
+                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+				bookingLink2: "https://t.me/royals37",
+                category: "weed"
+            },
+            {
+                title: "CaliSpain ​🇺🇸🇪🇸",
+                subtitle: "Tropicanna Cherry 🍒​",
+                image: "images/produit4.jpg",
+                video: "videos/produit4.mp4",
+                pricing: "20€/1.7G - 40€/4G - 90€/10G - 160€/20G",
+                description: "Une weed classique mais magnifique, top rapport qualité prix !",
+                bookingLink: "https://signal.me/#eu/OnJu1jAHsdksoEoXfGxqesgWtS4ylq2lWjkUhVyy4uwBkLKY1RCUZWG6KvLLmvl",
+				bookingLink2: "https://t.me/royals37",
+                category: "weed"
+            }
+        ];
 
     const productsGrid = document.getElementById('productsGrid');
     const productPopup = document.getElementById('productPopup');
@@ -1107,11 +1103,20 @@
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxClose = document.getElementById('lightboxClose');
 
+    const expandBadge = document.getElementById('expandBadge');
+
     /* ADDED: navbar ref + helper */
     const bottomNav = document.getElementById('bottomNav');
     function setNavbarHidden(hidden) {
       if (!bottomNav) return;
       bottomNav.classList.toggle('is-hidden', !!hidden);
+    }
+
+    function replayBadgeIntro() {
+      if (!expandBadge) return;
+      expandBadge.classList.remove('intro');
+      void expandBadge.offsetWidth; /* restart animation */
+      expandBadge.classList.add('intro');
     }
 
     function renderProducts(filter = 'all') {
@@ -1185,32 +1190,26 @@
       productPopup.classList.add('active');
       document.body.style.overflow = 'hidden';
 
-      /* ADDED: hide bottom nav */
       setNavbarHidden(true);
-
-      /* FIX: disable navbar clicks while popup is open */
       document.body.classList.add('popup-open');
+
+      /* ADDED: micro-animation on badge when popup opens */
+      replayBadgeIntro();
     }
 
     function openLightbox(imageSrc) {
       lightboxImage.src = imageSrc;
       lightbox.classList.add('active');
-
-      /* ADDED: hide bottom nav */
       setNavbarHidden(true);
-
-      /* FIX: disable navbar clicks while lightbox is open */
       document.body.classList.add('popup-open');
     }
 
     function closeLightbox() {
       lightbox.classList.remove('active');
 
-      /* ADDED: show bottom nav only if popup is NOT open */
       const popupOpen = productPopup.classList.contains('active');
       setNavbarHidden(popupOpen);
 
-      /* FIX: keep navbar disabled only if popup remains open */
       if (!popupOpen) document.body.classList.remove('popup-open');
     }
 
@@ -1225,11 +1224,9 @@
       document.body.style.overflow = 'auto';
       popupVideo.pause();
 
-      /* ADDED: if lightbox not open, show nav */
       const lightboxOpen = lightbox.classList.contains('active');
       setNavbarHidden(lightboxOpen);
 
-      /* FIX: keep navbar disabled only if lightbox remains open */
       if (!lightboxOpen) document.body.classList.remove('popup-open');
     }
 
